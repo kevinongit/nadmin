@@ -1,0 +1,13 @@
+<h2> MyUser Detail</h2>
+<div *ngIf="user$ | async as user">
+    <h3>"{{ user.username }}"</h3>
+    <div>
+        <label>Id: </label> {{ user.id }} 
+    </div>
+    <div>
+        <label>Name: </label> {{ user.firstName + " " + user.lastName }}
+    </div>
+    <p>
+        <button (click)="gotoTable(user)">Back</button>
+    </p>
+</div>
