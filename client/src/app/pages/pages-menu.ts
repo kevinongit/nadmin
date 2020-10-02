@@ -2,6 +2,16 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
+    title: 'Admin',
+    icon: 'grid-outline',
+    children: [
+      {
+        title: 'User Table',
+        link: '/pages/admin/user-table',
+      },
+    ],
+  },
+  {
     title: 'E-commerce',
     icon: 'shopping-cart-outline',
     link: '/pages/dashboard',

@@ -30,6 +30,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
+    console.log(`* ${req.baseUrl} ${req.path}`)
+    console.log(`headers : ${JSON.stringify(req.headers)}`)
     if (req.headers["x-access-token"]) {
         const accessToken = req.headers["x-access-token"];
         const { userId, exp } = await jwt.verify(accessToken, process.env.JWT_SECRET);

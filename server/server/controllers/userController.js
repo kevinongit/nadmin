@@ -108,9 +108,9 @@ exports.login = async(req, res, next) => {
 
 exports.getUsers = async (req, res, next) => {
     const users = await User.find({});
-    res.status(200).json({
-        data: users,
-    });
+    console.log(`users=${JSON.stringify(users)}`)
+    
+    res.status(200).json(users);
 }
 
 exports.getUser = async (req, res, next) => {
