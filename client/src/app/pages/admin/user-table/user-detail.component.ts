@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { UserTableService } from 'app/@core/k-real/user-table.service';
 import { OnInit, Component } from '@angular/core';
 import { switchMap, tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { switchMap, tap } from 'rxjs/operators';
           private route: ActivatedRoute,
           private router: Router,
           private service: UserTableService,
+          private location: Location,
       ) { }
 
       ngOnInit() {
@@ -38,6 +40,10 @@ import { switchMap, tap } from 'rxjs/operators';
           }, err => {
             console.log(`err = ${err}`);
           })
+      }
+
+      back() {
+        this.location.back();
       }
   }
   

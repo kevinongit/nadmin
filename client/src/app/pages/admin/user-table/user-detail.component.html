@@ -1,5 +1,5 @@
-<h2> User Detail</h2>
-<div *ngIf="user$ | async as user">
+<!-- <h2> User Profile </h2> -->
+<!-- <div *ngIf="user$ | async as user">
     <h3>"{{ user.username }}"</h3>
     <div>
         <label>Id: </label> {{ user._id }} 
@@ -8,7 +8,63 @@
         <label>Name: </label> {{ user.username }}
     </div>
     <p>
-        <button (click)="gotoTable(user)">Back</button>
-    </p>
-</div>
 
+        <button (click)="back()">Back</button>
+    </p>
+</div> -->
+
+
+
+<div class="row" *ngIf="user$ | async as user">
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header> USER PROFILE </nb-card-header>
+        <nb-card-body>
+          <form>
+            <div class="form-group row">
+              <label for="inputEmail1" class="label col-sm-3 col-form-label">ID</label>
+              <div class="col-sm-9">
+                  <p>{{user._id}}</p>
+                <!-- <input  nbInput fullWidth id="inputEmail1" placeholder="{{user._id}}"> -->
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="username1" class="label col-sm-3 col-form-label">Username</label>
+                <div class="col-sm-9">
+                  <!-- <input nbInput fullWidth id="username1" placeholder="{{user.username}}"> -->
+                  <p>{{user.username}}</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="title1" class="label col-sm-3 col-form-label">Title</label>
+                <div class="col-sm-9">
+                  <p>{{user.title || "no title"}}</p>
+                </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword2" class="label col-sm-3 col-form-label">Password</label>
+              <div class="col-sm-9">
+                <!-- <input type="password" nbInput fullWidth id="inputPassword2" placeholder="Password"> -->
+                <p>**</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 label">Role</label>
+              <div class="col-sm-9">
+                <nb-radio-group>
+                  <nb-radio disabled [checked]="user.role==='basic'">BASIC</nb-radio>
+                  <nb-radio disabled [checked]="user.role==='admin'">ADMIN</nb-radio>
+                  <nb-radio disabled>SUPER-SAIYAN</nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                <button type="submit" nbButton status="primary">Edit</button>
+              </div>
+            </div>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+</div>
