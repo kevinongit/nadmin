@@ -6,6 +6,7 @@ const path = require('path');
 const User = require('./models/userModel');
 const routes = require('./routes/route');
 const cors = require('cors');
+const logger = require('./common/logger');
 
 require("dotenv").config({
     path: path.join(__dirname, "../.env")
@@ -21,17 +22,18 @@ mongoose
         useNewUrlParser: true,
     })
     .then(() => {
-        console.log('Connected to the DB successfully.');
+        logger.info('Connected to the DB successfully.');
     })
 
+app.use('/profile', express.static('img'));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
-    console.log(`* ${req.baseUrl} ${req.path}`)
-    console.log(`headers : ${JSON.stringify(req.headers)}`)
+    logger.info(`* ${req.baseUrl} ${req.path}`)
+    logger.info('headers => ', req.headers)
     if (req.headers["x-access-token"]) {
         const accessToken = req.headers["x-access-token"];
         const { userId, exp } = await jwt.verify(accessToken, process.env.JWT_SECRET);
@@ -48,5 +50,5 @@ app.use(async (req, res, next) => {
 app.use('/', routes);
 
 app.listen(PORT, () => {
-    console.log('server is listening on port : ', PORT);
+    logger.info(`server is listening on port : ${PORT}`);
 })

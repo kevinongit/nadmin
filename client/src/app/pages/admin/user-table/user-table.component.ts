@@ -3,6 +3,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 
 import { UserTableService } from '../../../@core/k-real/user-table.service'
 import { Router } from '@angular/router';
+import { PictureRenderComponent } from './picture-render.component'
 
 @Component({
   selector: 'ngx-user-table',
@@ -27,9 +28,14 @@ export class UserTableComponent {
       confirmDelete: true,
     },
     columns: {
-      _id: {
-        title: 'ID',
-        type: 'string',
+      // _id: {
+      //   title: 'ID',
+      //   type: 'string',
+      // },
+      picture: {
+        title: 'PICTURE',
+        type: 'custom',
+        renderComponent: PictureRenderComponent,
       },
       username: {
         title: 'User Name',

@@ -1,3 +1,5 @@
+
+const logger = require('../common/logger');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -54,7 +56,7 @@ exports.signup = async(req, res, next) => {
         const hashedPassword = await hashPassword(password);
 
         
-        console.log(`signup : ${JSON.stringify(req.body)}`);
+        logger.info('signup.body => ', req.body);
         const user = new User({ email, password: hashedPassword, username, picture, title, role: role || "basic" });
         const accessToken = jwt.sign({ userId: user._id, 
                                        name: user.username,
@@ -79,7 +81,7 @@ exports.signup = async(req, res, next) => {
 exports.login = async(req, res, next) => {
     try {
         const { email, password }  = req.body;
-        console.log(`${JSON.stringify(req.body)}`)
+        logger.info('login.body => ', req.body);
         const user = await User.findOne({ email });
         if (!user) return next(new Error(`Email(${email}) does not exist`));
 
@@ -108,7 +110,7 @@ exports.login = async(req, res, next) => {
 
 exports.getUsers = async (req, res, next) => {
     const users = await User.find({});
-    console.log(`users=${JSON.stringify(users)}`)
+    logger.info('getUsers => ', users)
     
     res.status(200).json(users);
 }

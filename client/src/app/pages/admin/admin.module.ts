@@ -10,6 +10,8 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { AdminRoutingModule, routedComponents } from './admin-routing.module';
 import { CommonModule } from '@angular/common';
 
+import { PictureRenderComponent } from './user-table/picture-render.component'
+
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import {
   // NbActionsModule,
@@ -18,7 +20,7 @@ import {
   // NbDatepickerModule,
   NbRadioModule,
   NbSelectModule,
-  // NbUserModule,
+  NbUserModule,
 } from '@nebular/theme';
 
 @NgModule({
@@ -35,10 +37,12 @@ import {
     NbButtonModule,
     NbCheckboxModule,
     NbSelectModule,
+    NbUserModule,
     NbRadioModule,
   ],
   declarations: [
     ...routedComponents,
+    PictureRenderComponent, /// kevin is genius...wow.. 2020.10.05
   ],
 })
 export class AdminModule { }
