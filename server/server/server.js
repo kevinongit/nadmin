@@ -32,18 +32,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
-    logger.info(`* ${req.baseUrl} ${req.path}`)
-    logger.info('headers => ', req.headers)
-    if (req.headers["x-access-token"]) {
-        const accessToken = req.headers["x-access-token"];
-        const { userId, exp } = await jwt.verify(accessToken, process.env.JWT_SECRET);
-        if (exp < Date.now().valueOf() / 1000) {
-            return res.status(401).json({ error : "JWT token has expired, please login to obtain a new one" });
+    try {
+        logger.info(`* ${req.baseUrl} ${req.path}`)
+        logger.info('headers => ', req.headers)
+        if (req.headers["x-access-token"]) {
+            const accessToken = req.headers["x-access-token"];
+            const { userId, exp } = await jwt.verify(accessToken, process.env.JWT_SECRET);
+            if (exp < Date.now().valueOf() / 1000) {
+                return res.status(401).json({ error : "JWT token has expired, please login to obtain a new one" });
+            }
+            res.locals.loggedInUser = await User.findById(userId);
+            next();
+        } else {
+            next();
         }
-        res.locals.loggedInUser = await User.findById(userId);
-        next();
-    } else {
-        next();
+    } catch (error) {
+        next(error);
     }
 });
 
