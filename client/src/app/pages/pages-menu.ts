@@ -9,6 +9,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'User Table',
         link: '/pages/admin/user-table',
       },
+      {
+        title: 'User Mgmt',
+        link: '/pages/admin/user-mgmt',
+      },
     ],
   },
   {

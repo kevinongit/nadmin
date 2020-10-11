@@ -11,8 +11,9 @@ import { AdminRoutingModule, routedComponents } from './admin-routing.module';
 import { CommonModule } from '@angular/common';
 
 import { PictureRenderComponent } from './user-table/picture-render.component'
+import { UserSearchComponent } from './user-mgmt/search/user-search.component'
 
-import { FormsModule as ngFormsModule } from '@angular/forms';
+import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   // NbActionsModule,
   NbButtonModule,
@@ -34,6 +35,7 @@ import {
     AdminRoutingModule,
     Ng2SmartTableModule,
     ngFormsModule,
+    ReactiveFormsModule,
     NbButtonModule,
     NbCheckboxModule,
     NbSelectModule,
@@ -43,6 +45,7 @@ import {
   declarations: [
     ...routedComponents,
     PictureRenderComponent, /// kevin is genius...wow.. 2020.10.05
+    UserSearchComponent,
   ],
 })
 export class AdminModule { }

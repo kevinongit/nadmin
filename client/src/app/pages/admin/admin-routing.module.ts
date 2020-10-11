@@ -5,6 +5,8 @@ import { AdminComponent } from './admin.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserDetailComponent } from './user-table/user-detail.component';
 
+import { UserMgmtComponet } from './user-mgmt/user-mgmt.component'
+
 
 const routes: Routes = [{
   path: '',
@@ -18,6 +20,10 @@ const routes: Routes = [{
       path: 'user-detail/:id',
       component: UserDetailComponent,
     },
+    {
+      path: 'user-mgmt',
+      component: UserMgmtComponet,
+    }
   ],
 }];
 
@@ -31,4 +37,6 @@ export const routedComponents = [
   AdminComponent,
   UserTableComponent,
   UserDetailComponent,
+
+  UserMgmtComponet,
 ];
