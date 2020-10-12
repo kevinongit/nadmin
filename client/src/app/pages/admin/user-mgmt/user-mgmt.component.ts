@@ -5,7 +5,7 @@ import { Component } from '@angular/core'
     templateUrl: './user-mgmt.component.html',
 })
 export class UserMgmtComponet {
-    searchText: string;
+    // searchText: string;
     filters: Object;
 
     constructor() {}

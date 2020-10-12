@@ -109,7 +109,24 @@ exports.login = async(req, res, next) => {
 }
 
 exports.getUsers = async (req, res, next) => {
-    const users = await User.find({});
+    let cond = {};
+    const users = await User.find(cond);
+    logger.info('getUsers => ', users)
+    
+    res.status(200).json(users);
+}
+
+exports.getUserList = async (req, res, next) => {
+    const { username, role } = req.body;
+    let cond = {};
+    if (username) {
+        cond.username = username
+    }
+    if (role) {
+        cond.role = role;
+    }
+    logger.info('cond : ', cond)
+    const users = await User.find(cond);
     logger.info('getUsers => ', users)
     
     res.status(200).json(users);

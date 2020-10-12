@@ -11,6 +11,8 @@ router.get(apiBase + '/user/:userId', userController.allowIfLoggedIn, userContro
 
 router.get(apiBase + '/users', userController.allowIfLoggedIn, userController.grantAccess('readAny', 'profile'), userController.getUsers);
 
+router.post(apiBase + '/userList', userController.allowIfLoggedIn, userController.grantAccess('readAny', 'profile'), userController.getUserList);
+
 router.put(apiBase + '/user/:userId', userController.allowIfLoggedIn, userController.grantAccess('updateAny', 'profile'), userController.updateUser);
 
 router.delete(apiBase + '/user/:userId', userController.allowIfLoggedIn, userController.grantAccess('deleteAny', 'profile'), userController.deleteUser);

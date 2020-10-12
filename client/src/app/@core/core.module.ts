@@ -34,6 +34,7 @@ import { VisitorsAnalyticsData } from './data/visitors-analytics';
 import { SecurityCamerasData } from './data/security-cameras';
 
 import { UserService } from './real/users.service';
+import { UserMgmtService } from './k-real/user-mgmt.service'
 import { ElectricityService } from './mock/electricity.service';
 import { SmartTableMyUserService } from './real/smart-table-my-user.service'
 import { SmartTableService } from './mock/smart-table.service';
@@ -204,6 +205,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         ...NB_CORE_PROVIDERS,
+        UserMgmtService,
       ],
     };
   }

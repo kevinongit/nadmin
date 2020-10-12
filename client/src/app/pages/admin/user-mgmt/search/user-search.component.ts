@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core'
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
-import { UserTableService } from '../../../../@core/k-real/user-table.service'
+import { UserMgmtService } from '../../../../@core/k-real/user-mgmt.service'
 
 @Component({
     selector: 'user-search',
@@ -15,16 +15,17 @@ import { UserTableService } from '../../../../@core/k-real/user-table.service'
 })
 export class UserSearchComponent implements OnInit {
     form: FormGroup;
-    levels = [
-        "Beginner",
-        "Expert",
+    roles = [
+        "Basic",
+        "Admin",
+        "Super-Saiyan",
     ];
     @Output() groupFilters: EventEmitter<any> = new EventEmitter<any>();
     searchText: string = '';
 
     constructor(
         private fb: FormBuilder,
-        private userService: UserTableService,
+        private userService: UserMgmtService,
     ) {}
 
     ngOnInit(): void {
@@ -33,10 +34,11 @@ export class UserSearchComponent implements OnInit {
 
     buildForm(): void {
         this.form = this.fb.group({
+            userName: new FormControl(''),
             firstName: new FormControl(''),
             lastName: new FormControl(''),
             jobTitle: new FormControl(''),
-            level: new FormControl(''),
+            role: new FormControl(''),
             ageFrom: new FormControl(''),
             ageTo: new FormControl(''),
         })

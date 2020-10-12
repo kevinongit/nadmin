@@ -6,9 +6,6 @@
                     <div class="col-md-2">
                         <h5>사용자 조회</h5>
                     </div>
-                    <!-- <div class="col-md-6">
-                        <button class="btn btn-primary float-right" (click)="search(form.value)">검색</button>
-                    </div> -->
                 </div>
                 
 
@@ -16,26 +13,31 @@
             <nb-card-body>
                 <form novalidate [formGroup]="form">
                     <div class="form-group row">
+                        <label for="username" class="label col-sm-1 col-form-label">User Name</label>
+                        <div class="col-sm-2">
+                            <input type="text" nbInput id="userName" formControlName="userName" class="form-control" placeholder="User Name" />
+                        </div>
+
                         <label for="firstName" class="label col-sm-1 col-form-label">First Name</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <input type="text" nbInput id="firstName" formControlName="firstName" class="form-control" placeholder="First Name" />
                         </div>
                 
                         <label for="lastName" class="label col-sm-1 col-form-label">Last Name</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <input type="text" nbInput id="lastName" formControlName="lastName" class="form-control" placeholder="Last Name" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="jobTitle" class="label col-sm-1 col-form-label">Job Title</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <input type="text" nbInput id="jobTitle" formControlName="jobTitle" class="form-control" placeholder="Job Title" />
                         </div>
 
-                        <label for="level" class="label col-sm-1 col-form-label">Level</label>
-                        <div class="col-sm-3">
-                            <nb-select id="level" placeholder="Select Option" >
-                                <nb-option [ngValue]="level" *ngFor="let level of levels">{{level}}</nb-option>
+                        <label for="role" class="label col-sm-1 col-form-label">Role</label>
+                        <div class="col-sm-2">
+                            <nb-select id="role" placeholder="Select Option" >
+                                <nb-option [ngValue]="role" *ngFor="let role of roles">{{role}}</nb-option>
                             </nb-select>
                         </div>
                        
@@ -43,35 +45,21 @@
 
                     <div class="form-group row">
                         <label for="ageFrom" class="label col-sm-1 col-form-label">Age From</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <input type="text" id="ageFrom" formControlName="ageFrom" class="form-control" placeholder="age from" />
                         </div>
                 
                         <label for="ageTo" class="label col-sm-1 col-form-label">Age To</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <input type="text" id="ageTo" formControlName="ageTo" class="form-control" placeholder="age to" />
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <button class="btn btn-primary float-right" (click)="search(form.value)">Search</button>
-                    </div>
-                        
-                        
-                        <!-- <div class="col-md-6 col-sm-6">
-                            <select ngDefaultControl class="form-control form-control-lg" formControlName="level">
-                                <option value=""> Level</option>
-                                <option [ngValue]="level" *ngFor="let level of levels">{{level}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" formControlName="agefrom" class="form-control" placeholder="age from" />
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" formControlName="ageto" class="form-control" placeholder="age to" />
-                        </div>
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-sm-5">
                             <button class="btn btn-primary float-right" (click)="search(form.value)">Search</button>
                         </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        
+                        
                     </div> -->
                 </form>
             </nb-card-body>

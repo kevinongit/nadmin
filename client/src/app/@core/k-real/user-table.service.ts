@@ -64,6 +64,31 @@ export class UserTableService extends UserTable {
     return this.myUsers;
   }
 
+  getUserList(filters): Observable<any[]> {
+    console.log('getUserList')
+    this.authService.getToken()
+      .subscribe(token => {
+        const accessToken = token.getValue();
+        console.log(`token=${JSON.stringify(token)}`)
+        console.log(`accessToken=${JSON.stringify(accessToken)}`);
+
+        const headers = {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'x-access-token': accessToken,
+        };
+        const options = {
+          headers,
+        }
+
+        this.myUsers =  this.http.post<any[]>(this.myUserUrl, filters, options);
+      })
+
+      // return this.http.post<any[]>(this.myUserUrl)
+    /// is this work???
+    return this.myUsers;
+  }
+
   getUser(id: number | string) {
     console.log(this.myUsers)
     // if (!this.myUsers) return of(null);

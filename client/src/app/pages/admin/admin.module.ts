@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 
 import { PictureRenderComponent } from './user-table/picture-render.component'
 import { UserSearchComponent } from './user-mgmt/search/user-search.component'
+import { UserListComponent } from './user-mgmt/user-list/user-list.component'
 
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -46,6 +47,7 @@ import {
     ...routedComponents,
     PictureRenderComponent, /// kevin is genius...wow.. 2020.10.05
     UserSearchComponent,
+    UserListComponent,
   ],
 })
 export class AdminModule { }
