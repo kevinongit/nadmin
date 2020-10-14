@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivateChild, Router } from '@angular/router';
 import { NbAuthService } from '@nebular/auth';
 import { tap } from 'rxjs/operators';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivateChild {
     constructor(
         private authService: NbAuthService,
         private router: Router,
     ) { }
 
-    canActivate() {
-        return this.authService.isAuthenticated()
+    canActivateChild() {
+        return this.authService.isAuthenticatedOrRefresh()
             .pipe(
                 tap(authenticated => {
                     console.log(`authenticated : ${authenticated}`)
