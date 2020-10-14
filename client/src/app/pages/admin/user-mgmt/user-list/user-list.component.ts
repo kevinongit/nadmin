@@ -33,6 +33,7 @@ export class UserListComponent implements OnChanges {
     console.log(`this.grouFilters : ${JSON.stringify(this.groupFilters)}`)
     if (this.groupFilters !== undefined) {
       console.log(this.groupFilters);
+      this.umService.loadParam(this.groupFilters);
       this.users.subscribe(data => {
         console.log(`data: ${JSON.stringify(data)}`);
         this.source.load(data);

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserTable } from '../k-interface/user-table'
 import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { NbAuthService } from '@nebular/auth';
 
 
@@ -32,6 +32,32 @@ export class UserMgmtService {
             'Accept': 'application/json',
             'x-access-token': accessToken,
           },
+        };
+
+        this.http.get<any[]>(this.baseUrl, options).subscribe(
+          data => {
+            this.dataStore.users = data;
+            this._users.next(Object.assign({}, this.dataStore).users);
+          },
+          error => console.log(`Could not load users(error:${error})`)
+        );
+      })
+  }
+
+  loadParam(filters) {
+    this.authService.getToken()
+      .subscribe(token => {
+        const accessToken = token.getValue();
+        console.log(`accessToken=${JSON.stringify(accessToken)}`);
+        const options = {
+          headers : {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'x-access-token': accessToken,
+          },
+          params : new HttpParams({
+            fromObject: filters,
+          })
         };
 
         this.http.get<any[]>(this.baseUrl, options).subscribe(

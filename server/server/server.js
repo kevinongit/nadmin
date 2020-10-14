@@ -34,6 +34,8 @@ app.use(bodyParser.json());
 app.use(async (req, res, next) => {
     try {
         logger.info(`* ${req.baseUrl} ${req.path}`)
+        logger.info('* req.query =>', req.query)
+        console.log(`* req.query : ${JSON.stringify(req.query, null, 2)}`)
         logger.info('headers => ', req.headers)
         if (req.headers["x-access-token"]) {
             const accessToken = req.headers["x-access-token"];
