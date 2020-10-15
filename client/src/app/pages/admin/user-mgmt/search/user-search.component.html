@@ -15,7 +15,7 @@
                     <div class="form-group row">
                         <label for="username" class="label col-sm-1 col-form-label">User Name</label>
                         <div class="col-sm-2">
-                            <input type="text" nbInput id="userName" formControlName="userName" class="form-control" placeholder="User Name" />
+                            <input type="text" nbInput id="username" formControlName="username" class="form-control" placeholder="User Name" />
                         </div>
 
                         <label for="firstName" class="label col-sm-1 col-form-label">First Name</label>
@@ -34,10 +34,11 @@
                             <input type="text" nbInput id="jobTitle" formControlName="jobTitle" class="form-control" placeholder="Job Title" />
                         </div>
 
-                        <label for="role" class="label col-sm-1 col-form-label">Role</label>
+                        <label for="selected" class="label col-sm-1 col-form-label">Role</label>
                         <div class="col-sm-2">
-                            <nb-select id="role" placeholder="Select Option" >
-                                <nb-option [ngValue]="role" *ngFor="let role of roles">{{role}}</nb-option>
+                            <nb-select id="role" placeholder="Select Option" formControlName="role" [(selected)]="role" >
+                                <nb-option [value]="null"> ALL </nb-option>
+                                <nb-option [value]="role" *ngFor="let role of roles">{{role}}</nb-option>
                             </nb-select>
                         </div>
                        

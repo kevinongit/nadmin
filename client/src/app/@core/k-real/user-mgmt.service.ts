@@ -3,7 +3,7 @@ import { UserTable } from '../k-interface/user-table'
 import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { NbAuthService } from '@nebular/auth';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 
 
 @Injectable({
@@ -18,31 +18,14 @@ export class UserMgmtService {
   constructor(private http: HttpClient,
               private authService: NbAuthService,
     ) { 
-    // super(); 
-  }
-
-  loadAll() {
-    this.authService.getToken()
-      .subscribe(token => {
-        const accessToken = token.getValue();
-        console.log(`accessToken=${JSON.stringify(accessToken)}`);
-        const options = {
-          headers : {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'x-access-token': accessToken,
-          },
-        };
-
-        this.http.get<any[]>(this.baseUrl, options).subscribe(
-          data => {
-            this.dataStore.users = data;
-            this._users.next(Object.assign({}, this.dataStore).users);
-          },
-          error => console.log(`Could not load users(error:${error})`)
-        );
+      this.authService.onTokenChange()
+      .subscribe((token: NbAuthToken) => {
+        console.log('token changed');
+        this._users.next([])
       })
   }
+
+ 
 
   loadParam(filters) {
     this.authService.getToken()

@@ -16,12 +16,12 @@ import { UserMgmtService } from '../../../../@core/k-real/user-mgmt.service'
 export class UserSearchComponent implements OnInit {
     form: FormGroup;
     roles = [
-        "Basic",
-        "Admin",
-        "Super-Saiyan",
+        "basic",
+        "admin",
+        "super-saiyan",
     ];
     @Output() groupFilters: EventEmitter<any> = new EventEmitter<any>();
-    searchText: string = '';
+    role: string = '';
 
     constructor(
         private fb: FormBuilder,
@@ -34,7 +34,7 @@ export class UserSearchComponent implements OnInit {
 
     buildForm(): void {
         this.form = this.fb.group({
-            userName: new FormControl(''),
+            username: new FormControl(''),
             firstName: new FormControl(''),
             lastName: new FormControl(''),
             jobTitle: new FormControl(''),
@@ -45,7 +45,7 @@ export class UserSearchComponent implements OnInit {
     }
 
     search(filters: any): void {
-        Object.keys(filters).forEach(key => filters[key] === '' ? delete filters[key] : key)
+        Object.keys(filters).forEach(key => (filters[key] === '' || !!! filters[key]) ? delete filters[key] : key)
         console.log(`filters : ${JSON.stringify(filters)}`)
         this.groupFilters.emit(filters);
     }

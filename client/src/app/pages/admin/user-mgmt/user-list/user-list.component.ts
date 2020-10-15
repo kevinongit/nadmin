@@ -26,7 +26,7 @@ export class UserListComponent implements OnChanges {
     console.log('ngOnInit')
     this.users = this.umService.users;
 
-    this.umService.loadAll();
+    this.umService.loadParam(null);
   }
 
   ngOnChanges(): void {

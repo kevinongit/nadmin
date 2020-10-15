@@ -109,7 +109,8 @@ exports.login = async(req, res, next) => {
 }
 
 exports.getUsers = async (req, res, next) => {
-    let cond = {};
+    let cond = req.query;
+    console.log(`*req.query : ${JSON.stringify(req.query, null, 2)}`)
     const users = await User.find(cond);
     logger.info('getUsers => ', users)
     
