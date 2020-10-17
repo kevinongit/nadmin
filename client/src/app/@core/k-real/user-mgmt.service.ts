@@ -4,6 +4,7 @@ import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { NbAuthService, NbAuthToken } from '@nebular/auth';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -16,6 +17,7 @@ export class UserMgmtService {
   readonly users = this._users.asObservable();
 
   constructor(private http: HttpClient,
+              private router: Router,
               private authService: NbAuthService,
     ) { 
       this.authService.onTokenChange()
@@ -30,6 +32,9 @@ export class UserMgmtService {
   loadParam(filters) {
     this.authService.getToken()
       .subscribe(token => {
+        if (!token.isValid()) {
+          this.router.navigate(['auth/login']);
+        }
         const accessToken = token.getValue();
         console.log(`accessToken=${JSON.stringify(accessToken)}`);
         const options = {
