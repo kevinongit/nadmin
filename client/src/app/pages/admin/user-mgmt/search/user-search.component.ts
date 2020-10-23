@@ -37,7 +37,7 @@ export class UserSearchComponent implements OnInit {
             username: new FormControl(''),
             firstName: new FormControl(''),
             lastName: new FormControl(''),
-            jobTitle: new FormControl(''),
+            title: new FormControl(''),
             role: new FormControl(''),
             ageFrom: new FormControl(''),
             ageTo: new FormControl(''),

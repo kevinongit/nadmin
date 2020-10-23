@@ -26,7 +26,7 @@ export class UserListComponent implements OnChanges {
     console.log('ngOnInit')
     this.users = this.umService.users;
 
-    this.umService.loadParam(null);
+    // this.umService.loadParam(null);
   }
 
   ngOnChanges(): void {
@@ -35,6 +35,8 @@ export class UserListComponent implements OnChanges {
       console.log(this.groupFilters);
       this.umService.loadParam(this.groupFilters);
       this.users.subscribe(data => {
+        console.log(`data.length=${data.length}`)
+
         console.log(`data: ${JSON.stringify(data)}`);
         this.source.load(data);
       })
@@ -56,6 +58,7 @@ export class UserListComponent implements OnChanges {
     //   deleteButtonContent: '<i class="nb-trash"></i>',
     //   confirmDelete: true,
     // },
+    // hideHeader: true,
     hideSubHeader: true,
     actions: {
       add: false,

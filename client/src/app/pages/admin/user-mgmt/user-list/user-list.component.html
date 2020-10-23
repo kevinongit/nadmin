@@ -1,6 +1,12 @@
 <nb-card>
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)" (userRowSelect)="onUserRowSelect($event)">
-    </ng2-smart-table>
+    <div *ngIf="source.count()===0">
+      <p> No Data.</p>
+    </div>
+    <div *ngIf="source.count()>0">
+      <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"
+        (userRowSelect)="onUserRowSelect($event)">
+      </ng2-smart-table>
+    </div>
   </nb-card-body>
 </nb-card>

@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivateChild {
     ) { }
 
     canActivateChild() {
+        // return true
         return this.authService.isAuthenticatedOrRefresh()
             .pipe(
                 tap(authenticated => {
