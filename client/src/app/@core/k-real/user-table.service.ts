@@ -10,8 +10,8 @@ import { NbAuthService } from '@nebular/auth';
   providedIn: 'root'
 })
 export class UserTableService extends UserTable {
-  myUsers: Observable<any[]>;
-  myUserUrl = 'http://localhost:3000/api/v1/users';
+  myUsers: Observable<any>;
+  myUserUrl = 'http://localhost:3000/v1/users';
 
   constructor(private http: HttpClient,
               private authService: NbAuthService,
@@ -30,13 +30,14 @@ export class UserTableService extends UserTable {
         const headers = {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'x-access-token': accessToken,
+          // 'x-access-token': accessToken,
+          'Authorization' : 'Bearer ' + accessToken,
         };
         const options = {
           headers,
         }
 
-        this.myUsers = this.http.get<any[]>(this.myUserUrl, options);
+        this.myUsers = this.http.get<any>(this.myUserUrl, options);
       })
     
   }
@@ -59,7 +60,7 @@ export class UserTableService extends UserTable {
   //   return throwError('Something bad happened: please try again later.');
   // }
 
-  getUsers(): Observable<any[]> {
+  getUsers(): Observable<any> {
     this.loadAll();
     return this.myUsers;
   }

@@ -118,17 +118,21 @@ export const NB_CORE_PROVIDERS = [
     strategies: [
       NbPasswordAuthStrategy.setup({
         name: 'email',
-        token: {
+        token : {
           class: NbAuthJWTToken,
-          key: 'accessToken',
+          key: 'tokens.access.token'
         },
+        // token: {
+        //   class: NbAuthJWTToken,
+        //   key: 'accessToken',
+        // },
         baseEndpoint: 'http://localhost:3000',
         login: {
-          endpoint: '/api/v1/auth/login',
+          endpoint: '/v1/auth/login',
           method: 'post',
         },
         register: {
-          endpoint: '/api/v1/auth/signup',
+          endpoint: '/v1/auth/register',
           method: 'post',
         },
         logout: {

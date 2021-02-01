@@ -4,6 +4,9 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { UserTableService } from '../../../@core/k-real/user-table.service'
 import { Router } from '@angular/router';
 import { PictureRenderComponent } from './picture-render.component'
+import { NbAuthService } from '@nebular/auth';
+import { concatMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-user-table',
@@ -58,17 +61,47 @@ export class UserTableComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  // constructor(private service: SmartTableData) {
-  //   const data = this.service.getData();
-  //   this.source.load(data);
+  // constructor(
+  //   private service: UserTableService, 
+  //   private router: Router) {
+  //   const data = this.service.getUsers();
+  //   data.subscribe(d => {
+  //     console.log(`data ${JSON.stringify(d)}`)
+  //     this.source.load(d.results)
+  //   });
   // }
-  constructor(private service: UserTableService, private router: Router) {
-    const data = this.service.getUsers();
-    data.subscribe(d => {
-      console.log(`${d}`)
-      this.source.load(d)
-    });
+
+  constructor(
+    // private service: UserTableService,
+    private authService: NbAuthService,
+    private http: HttpClient,
+    private router: Router,
+  ) {
+    this.authService.getToken()
+      .pipe(
+        concatMap(token => {
+          const accessToken = token.getValue();
+          console.log(`token=${JSON.stringify(token)}`)
+          console.log(`accessToken=${JSON.stringify(accessToken)}`);
+
+          const headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            // 'x-access-token': accessToken,
+            'Authorization' : 'Bearer ' + accessToken,
+          };
+          const options = {
+            headers,
+          }
+
+          return this.http.get<any>("http://localhost:3000/v1/users", options);
+        }))
+        .subscribe(data => {
+          console.log(`data ${JSON.stringify(data)}`)
+          this.source.load(data.results) 
+        })
   }
+
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {

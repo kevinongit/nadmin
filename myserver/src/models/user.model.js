@@ -43,7 +43,7 @@ const userSchema = mongoose.Schema(
     },
     picture: {
       type: String,
-      default: '',
+      default: 'https://i.pravatar.cc/200',
     }
   },
   {

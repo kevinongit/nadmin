@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class UserMgmtService {
   private _users = new BehaviorSubject<any[]>([]);
-  private baseUrl = 'http://localhost:3000/api/v1/users';
+  private baseUrl = 'http://localhost:3000/v1/users';
   private dataStore: { users: any[] } = { users: []};
   readonly users = this._users.asObservable();
 
