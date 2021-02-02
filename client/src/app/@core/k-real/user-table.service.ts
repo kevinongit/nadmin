@@ -52,9 +52,9 @@ export class UserTableService extends UserTable {
   /// 2021.02.02 not this way - the lifecycle of BehaviorSubject, 
   ///   when to create and when to complete
   clear() {
-    this._myUsers.next();
-    this._myUsers.complete();
-    console.log('_myUser completed!')
+    this._myUsers.next([]);
+    // this._myUsers.complete();
+    console.log('_myUser initialized!')
   }
 
   loadAll() : void {

@@ -107,7 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               }, err => {
                 console.log(`err = ${err}`);
               })
-              // this.userTableService.clear()
+              this.userTableService.clear()
             });
    
         }
