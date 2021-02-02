@@ -14,6 +14,8 @@ export class UserService extends User2Data {
       .onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
+          const payload = token.getPayload()
+          console.log(`payload = ${JSON.stringify(payload)}`)
           this.publishUser(token.getPayload());
         }
       })

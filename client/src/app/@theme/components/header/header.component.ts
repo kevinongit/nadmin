@@ -7,6 +7,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { Router } from '@angular/router';
+import { UserTableService } from 'app/@core/k-real/user-table.service';
 
 @Component({
   selector: 'ngx-header',
@@ -46,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private menuService: NbMenuService,
               private themeService: NbThemeService,
               private userService: User2Data,
+              private userTableService: UserTableService,
               private layoutService: LayoutService,
               private authService: NbAuthService,
               private router: Router,
@@ -59,6 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         } else {
           console.log(`+ error: token is invalid`)
         }
+        
       })
   }
 
@@ -104,6 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               }, err => {
                 console.log(`err = ${err}`);
               })
+              // this.userTableService.clear()
             });
    
         }

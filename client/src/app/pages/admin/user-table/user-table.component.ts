@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { UserTableService } from '../../../@core/k-real/user-table.service'
@@ -7,15 +7,20 @@ import { PictureRenderComponent } from './picture-render.component'
 import { NbAuthService } from '@nebular/auth';
 import { concatMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ngx-user-table',
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.scss'],
 })
-export class UserTableComponent {
+export class UserTableComponent implements OnInit {
+
+  users$: Observable<any[]>
 
   settings = {
+    hideSubHeader: true,
+    actions: null,
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -40,7 +45,7 @@ export class UserTableComponent {
         type: 'custom',
         renderComponent: PictureRenderComponent,
       },
-      username: {
+      name: {
         title: 'User Name',
         type: 'string',
       },
@@ -76,30 +81,39 @@ export class UserTableComponent {
     private authService: NbAuthService,
     private http: HttpClient,
     private router: Router,
+    private userService: UserTableService,
   ) {
-    this.authService.getToken()
-      .pipe(
-        concatMap(token => {
-          const accessToken = token.getValue();
-          console.log(`token=${JSON.stringify(token)}`)
-          console.log(`accessToken=${JSON.stringify(accessToken)}`);
+    // this.authService.getToken()
+    //   .pipe(
+    //     concatMap(token => {
+    //       const accessToken = token.getValue();
+    //       console.log(`token=${JSON.stringify(token)}`)
+    //       console.log(`accessToken=${JSON.stringify(accessToken)}`);
 
-          const headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            // 'x-access-token': accessToken,
-            'Authorization' : 'Bearer ' + accessToken,
-          };
-          const options = {
-            headers,
-          }
+    //       const headers = {
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json',
+    //         // 'x-access-token': accessToken,
+    //         'Authorization' : 'Bearer ' + accessToken,
+    //       };
+    //       const options = {
+    //         headers,
+    //       }
 
-          return this.http.get<any>("http://localhost:3000/v1/users", options);
-        }))
-        .subscribe(data => {
-          console.log(`data ${JSON.stringify(data)}`)
-          this.source.load(data.results) 
-        })
+    //       return this.http.get<any>("http://localhost:3000/v1/users", options);
+    //     })
+    //   )
+    //   .subscribe(data => {
+    //       console.log(`data ${JSON.stringify(data)}`)
+    //       this.source.load(data.results) 
+    //   })
+  }
+
+  ngOnInit() {
+    this.userService.fetchUsers()
+    this.users$ = this.userService.myUsers
+    this.users$.subscribe(data => this.source.load(data))
+    // this.source.load(this.users$)
   }
 
 
@@ -115,7 +129,7 @@ export class UserTableComponent {
   onUserRowSelect(event): void {
     const selectedRow = event.data;
     console.log(`event : ${JSON.stringify(event.data)}`);
-    this.router.navigate(['/pages', 'admin', 'user-detail', event.data._id]).then(nav => {
+    this.router.navigate(['/pages', 'admin', 'user-detail', event.data.id]).then(nav => {
       console.log(`nav = ${nav}`);
     }, err => {
       console.log(`err = ${err}`);

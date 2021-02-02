@@ -33,7 +33,7 @@ import { Location } from '@angular/common';
       }
 
       gotoTable(user: any) {
-          const id = user ? user._id : null;
+          const id = user ? user.id : null;
         //   this.router.navigate(['smart-detail', {id: id, foo: 'foo' }]);
           this.router.navigate(['/pages', 'admin', 'user-table']).then(nav => {
             console.log(`nav = ${nav}`);
